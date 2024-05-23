@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section>
+    <div class="login-container">
+      <div class="login-title">
+        <p>
+          Sign in
+        </p>
+      </div>
+      <form>
+        <fieldset>
+          <div class="box-email">
+            <input type="email"/>
+            <p>Email</p>
+          </div>
+          <div class="box-password">
+            <input type="password"/>
+            <p>Password</p>
+          </div>
+          <div class="box-submit">
+            <button type="submit">Login</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+{% endblock %}

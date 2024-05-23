@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+  <div class="register-container">
+    <div class="register-title">
+      <p>
+        Register
+      </p>
+    </div>
+    <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+      <fieldset>
+        {% csrf_token %}
+        <div class="reg-name">
+          <div class="box-fname">
+            <input name="firstName" required type="text"/>
+            <p>First name</p>
+            {% for err in form.firstName.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+          </div>
+          <div class="box-lname">
+            <input name="lastName" required type="text"/>
+            <p>Last name</p>
+            {% for err in form.lastName.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="box-username">
+          <input name="username" required type="text"/>
+          <p>Username</p>
+          {% for err in form.username.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+        </div>
+        <div class="box-email">
+          <input name="email" required type="email"/>
+          <p>Email</p>
+          {% for err in form.email.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+        </div>
+        <div class="box-password">
+          <input name="password" required type="password"/>
+          <p>Password</p>
+          {% for err in form.password.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+        </div>
+        <div class="box-repassword">
+          <input name="repassword" required type="password"/>
+          <p>Re-enter password</p>
+          {% for err in form.repassword.errors %}
+              <small class="text-danger">{{ err }}</small>
+            {% endfor %}
+        </div>
+        
+        <div style="margin-left: 7.5vw;" class="box-submit">
+          <button type="submit">Register</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+{% endblock %}
