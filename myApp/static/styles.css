@@ -76,7 +76,12 @@ header {
     font-weight: 700;
     font-style: normal;
     font-size: medium;
-    position: sticky;
+    position: fixed;
+}
+
+.header-search {
+    margin-left: 59vw;
+    margin-top: 0.4vh;
 }
 
 .app-title p {
@@ -461,11 +466,13 @@ nav li a:hover {
 }
 
 .profile {
-    margin-left: 52vw;
+    margin-left: 93vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: fixed;
     justify-content: space-between;
+    z-index: 1000;
 }
 
 .profile-container {
@@ -505,7 +512,7 @@ nav li a:hover {
     align-items: center;
     justify-content: center;
     display: block;
-    z-index: -1;
+    z-index: 999;
 }
 
 .profile-options-show ul {
@@ -554,9 +561,92 @@ nav li a:hover {
 }
 
 .left-sidebar {
-    height: 80vh;
-    margin-top: -17vh;
+    height: 91vh;
+    margin-top: -9vh;
     width: 17vw;
+    background-color: #ff87be;
+    background-image: linear-gradient(61deg, #ff87be 0%, #ff9c5d 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+.left-sidebar-header {
+    padding: 1rem
+}
+
+.left-sidebar-search {
+    height: 5vh;
+    width: 100%;
+    background-color: green;
+}
+
+.left-sidebar-content {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vh;
+    justify-content: center;
+}
+
+.left-sidebar-content ul {
+    list-style: none;
+    padding: 15px;
+}
+
+.left-sidebar-content ul li {
+    padding: 15px;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: small;
+    color: white;
+}
+
+.left-sidebar-content ul li svg {
+    margin-top: -.3vh;
+    margin-right: 2vw;
+}
+
+.left-sidebar-header p {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: medium;
+    color: white;
+}
+
+.header-search input {
     border-radius: 15px;
-    background-color: #ed6ea0;
+    height: 2.4vh;
+    width: 16vw;
+    padding-bottom: 4px;
+    padding-left: 8px;
+}
+
+.header-search input[type=text] {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: smaller;
+    color: black;
+    padding-top: 3px;
+}
+
+.header-search input::placeholder {
+    color: rgb(171, 171, 171);
+    font-size: smaller;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.profile-list li a {
+    text-decoration: none;
+    color: black;
 }

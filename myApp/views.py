@@ -169,7 +169,7 @@ def login(request):
 
         myUser = user.filter(email=email).values()
 
-        print(myUser[0])
+        # print(myUser[0])
 
         if user.filter(email=email, password=password, confirmed = 1).exists():
             return render(request, 'home.html', {'form':myUser[0]})
