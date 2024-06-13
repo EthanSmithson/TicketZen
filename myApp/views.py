@@ -57,8 +57,8 @@ def send_activate_email(user, request):
 def index(request):
     return render(request, 'index.html')
 
-def about(request):
-    return render(request, 'tickets.html')
+# def about(request):
+#     return render(request, 'tickets.html')
 
 # @api_view(['GET', 'POST'])
 def register(request):
@@ -186,3 +186,10 @@ def login(request):
 
         form = LoginForm(None)   
         return render(request, 'login.html', {'form':form})
+    
+
+def home(request):
+    return render(request, 'home.html')
+
+def tickets(request):
+    return render(request, 'tickets.html')

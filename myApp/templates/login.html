@@ -62,6 +62,21 @@
   </section>
 
   <script>
+    const loginTab = document.getElementById('login');
+    const registerTab = document.getElementById('register');
+    
+    function register() {
+        if(loginTab.classList.contains('login-register-active')) {
+            registerTab.classList.add('login-register-active');
+            loginTab.classList.remove('login-register-active');
+        }
+    }
+
+    function registerClear() {
+        loginTab.classList.add('login-register-active');
+        registerTab.classList.remove('login-register-active');
+    }
+    
     const appTitle = document.getElementById('app-title');
     appTitle.style.color = "black"
   </script>

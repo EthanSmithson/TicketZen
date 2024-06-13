@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 header {
     width: 100%;
     display: flex;
@@ -370,7 +374,7 @@ nav li a:hover {
 
 .container-2 {
     width: 100%;
-    height: 120vh;
+    height: 155vh;
     background: white;
     display: flex;
     flex-direction: column;
@@ -420,12 +424,12 @@ nav li a:hover {
     display: grid;
     grid-template-columns: 58% 20%;
     grid-template-rows: 53% 20%;
-    margin-left: 50vw;
+    margin-left: 57vw;
 }
 
 .card-1, .card-2, .card-3, .card-4 {
-    height: 36vh;
-    width: 17vw;
+    height: 32vh;
+    width: 14vw;
     background: aliceblue;
     border-radius: 25px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -568,10 +572,35 @@ nav li a:hover {
     background-image: linear-gradient(61deg, #ff87be 0%, #ff9c5d 100%);
     display: flex;
     flex-direction: column;
+    transition: all .5s;
 }
 
 .left-sidebar-header {
-    padding: 1rem
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-sidebar-header svg {
+    color: white;
+    cursor: pointer;
+}
+
+.left-sidebar-header svg:hover {
+    color: rgb(255, 93, 34);
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.left-sidebar-header p {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: medium;
+    color: white;
+    margin-top: -.3rem;
 }
 
 .left-sidebar-search {
@@ -586,7 +615,7 @@ nav li a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3vh;
+    margin-top: 5vh;
     justify-content: center;
 }
 
@@ -603,20 +632,27 @@ nav li a:hover {
     font-style: normal;
     font-size: small;
     color: white;
+    display: flex;
+}
+
+.left-sidebar-content ul li a {
+    text-decoration: none;
+    color: white
 }
 
 .left-sidebar-content ul li svg {
-    margin-top: -.3vh;
     margin-right: 2vw;
 }
 
-.left-sidebar-header p {
-    font-family: "Raleway", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-size: medium;
-    color: white;
+.left-sidebar-collapse {
+    height: 91vh;
+    margin-top: -9vh;
+    width: 6vw;
+    background-color: #ff87be;
+    background-image: linear-gradient(61deg, #ff87be 0%, #ff9c5d 100%);
+    display: flex;
+    flex-direction: column;
+    transition: all .5s;
 }
 
 .header-search input {
@@ -650,3 +686,145 @@ nav li a:hover {
     text-decoration: none;
     color: black;
 }
+
+.main-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: antiquewhite;
+}
+
+.rotate-collapse {
+    transition: all .3s;
+    transform: rotate(180deg);
+}
+
+.my-recents  {
+    height: 38vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 4rem;
+    background-color: aliceblue;
+}
+
+.my-recents-header {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-size: x-large;
+  font-style: normal;
+}
+
+.explore-tickets  {
+    height: 38vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 4rem;
+    background-color: burlywood;
+}
+
+.explore-tickets-header {
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-size: x-large;
+    font-style: normal;
+}
+
+.container-3 {
+    width: 100%;
+    height: 108vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 224vh;
+    z-index: 2;
+    position: absolute;
+}
+
+.content-3 {
+    height: 25vh;
+    width: 100%;
+    background-color: aqua;
+    /* margin-top: 50vh; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.content-3-left {
+    font-size: large;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.content-3-right {
+    /* background-color: #ed6ea0; */
+}
+
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+
+.show {
+    filter: blur(0);
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* .loading_cont {
+    width: 100%;
+    height: 100%;
+    background: red;
+    background: -webkit-linear-gradient(left top, #152a8e, #b1376c);
+    background: -o-linear-gradient(bottom right, #152a8e, #b1376c);
+    background: -moz-linear-gradient(bottom right, #152a8e, #b1376c);
+    background: linear-gradient(to bottom right, #152a8e, #b1376c);
+   } */
+   
+   .loading_cont:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0px;
+    background: url(https://next.atcom.gr/StaticData/Landing2017/Content/Media/dots-transparent.png) repeat scroll center center;
+    opacity: 0.05;
+    z-index: 0;
+   }
+   
+   #loader {
+     display: inline-block;
+     position: relative;
+     width: 800px;
+     height: 800px;
+     /* top: 50%;
+     left: 50%;
+     margin-left: -400px;
+     margin-top: -400px; */
+   }
+   
+   rect {
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+   }
+   
+   .blobs {
+    -webkit-filter: url("#goo");
+    filter: url("#goo");
+   }
+   
+   .blob {
+     fill: white;
+   }

@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
     <header style="align-items: center;">
         <a style="display: flex; flex-direction: row; text-decoration: none; align-items: center;" href="{% url 'index' %}" style="display: block; cursor: pointer;">
             <div class="logo-container">
@@ -86,6 +93,62 @@
             </div>
         </div>
     </section>
+
+    <section class="container-3">
+        <div class="content-3">
+            <div class="content-3-left hidden">
+                <p>
+                    We are dedicated to make traveling easier. Find what<br> adventures await you by finding tickets the right way.
+                </p>
+            </div>
+            <div class="content-3-right">
+                <div class="loading_cont">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" id="loader">
+                      <defs>
+                        <filter id="goo">
+                          <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                          <feBlend in2="goo" in="SourceGraphic" result="mix" />
+                        </filter>
+                        <linearGradient id="MyGradient">
+                            <stop offset="5%"  stop-color="#40204c"/>
+                            <stop offset="40%" stop-color="#a3225c"/>
+                            <stop offset="100%" stop-color="#e24926"/>
+                        </linearGradient>
+                      </defs>
+                      <mask id="maska">
+                        <g class="blobs">
+                          <circle class="blob" cx="440" cy="250" r="30" transform="rotate(0) translate(0, 0) rotate(0)"/>
+                          <circle class="blob" cx="500" cy="320" r="70"  transform="rotate(0) translate(0, 0) rotate(0)"/>
+                          <circle class="blob" cx="300" cy="390" r="40"  transform="rotate(0) translate(0, 0) rotate(0)"/>
+                          <circle class="blob" cx="380" cy="390" r="80"  transform="rotate(0) translate(0, 0) rotate(0)"/>
+                          <circle class="blob" cx="470" cy="450" r="20"  transform="rotate(0) translate(0, 0) rotate(0)"/>
+                        </g>
+                      </mask>
+                      <rect x="200" y="200"  mask="url(#maska)" fill="url(#MyGradient)" width="400" height="400">
+                    </svg>  
+                  </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        })
+        
+        const hiddenElements = document.querySelectorAll('.hidden');    
+        
+        hiddenElements.forEach((el) => observer.observe(el));
+
+
+    </script>
 
 
 

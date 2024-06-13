@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-4c=f%34@w-rd#q_y)1-$*on96^uzbz2di0=)q8s195h)mdj&0z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.ticketzen.com',
+                 'localhost']
 
 
 # Application definition
