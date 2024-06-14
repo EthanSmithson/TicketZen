@@ -1,7 +1,47 @@
-{% extends 'base.html' %}
-{% block content %}
-<a href="{% url 'home' %}">Go Home</a>
-<div class="container">
-    
+{% extends 'home.html' %}
+{% block mainContent %}
+<div class="find-tickets-container">
+    <div class="tickets-header">
+        <div class="searchbar-tickets">
+            <input class="searchbar-tickets-input" type="text" placeholder="Find Tickets">
+        </div>
+        <div id="filter" class="filter">
+            <p>Filters</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
+              </svg>
+        </div>
+        <div id="filter-list" class="filter-list hidden-filter-list">
+            <ul>
+                <li>Tickets Type</li>
+                <li>Price</li>
+            </ul>
+        </div>
+    </div>
+    <div class="tickets-results">
+
+    </div>
 </div>
+
+<script>
+    const filter = document.getElementById('filter');
+    const filterList = document.getElementById('filter-list');
+    const buffer = document.getElementById('buffer');
+    filter.addEventListener('click', function() {
+        if (filterList.classList.contains('hidden-filter-list')) {
+            filterList.classList.remove('hidden-filter-list')
+            buffer.classList.remove('buffer-hide');
+        } else {
+            filterList.classList.add('hidden-filter-list')
+            buffer.classList.add('buffer-hide');
+        }
+    })
+
+    buffer.addEventListener('click', function() {
+        if (!buffer.classList.contains('buffer-hide') && !filterList.classList.contains('hidden-filter-list')) {
+            buffer.classList.add('buffer-hide');
+            filterList.classList.add('hidden-filter-list');
+        }
+    })
+</script>
 {% endblock %}

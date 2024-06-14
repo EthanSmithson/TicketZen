@@ -189,7 +189,23 @@ def login(request):
     
 
 def home(request):
-    return render(request, 'home.html')
+
+    uid = request.GET.get('uid')
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
+
+    return render(request, 'home.html', {'form':myUser[0]})
 
 def tickets(request):
-    return render(request, 'tickets.html')
+    
+    print(request.GET.get('uid'))
+    uid = request.GET.get('uid')
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
+
+    return render(request, 'tickets.html', {'form':myUser[0]})
+
+def explore(request):
+    return render(request, 'explore.html')
