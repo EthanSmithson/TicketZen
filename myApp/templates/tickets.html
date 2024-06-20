@@ -3,7 +3,21 @@
 <div class="find-tickets-container">
     <div class="tickets-header">
         <div class="searchbar-tickets">
-            <input class="searchbar-tickets-input" type="text" placeholder="Find Tickets">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <fieldset>
+                    {% csrf_token %}
+                    <!-- <input onkeyup="handleToLocation()" id="to" class="searchbar-tickets-from" type="text" placeholder="From Destination">
+                    <button type="submit">search</button> -->
+                    <input  name="Origin" id="inputOrigin" class="searchbar-tickets-from" type="text" placeholder="From Destination">
+                    <input  name="Destination" id="inputDestination" class="searchbar-tickets-from" type="text" placeholder="To Destination">
+                    <input  name="Departuredate" id="idDeparturedate" class="searchbar-tickets-from" type="date" placeholder="Departure Date">
+                    <input  name="Returndate" id="idReturndate" class="searchbar-tickets-from" type="date" placeholder="Return Date">
+                    <input  type="Submit" name="Submit" value="Search Flight" />
+                </fieldset>
+            </form>
+        </div>
+        <div id="toLocationData">
+
         </div>
         <div id="filter" class="filter">
             <p>Filters</p>
@@ -19,7 +33,9 @@
         </div>
     </div>
     <div class="tickets-results">
-
+        <div class="results">
+            
+        </div>
     </div>
 </div>
 
@@ -43,5 +59,65 @@
             filterList.classList.add('hidden-filter-list');
         }
     })
+
+
+    $("#form_id").on("submit", function (e) {
+        e.preventDefault();
+        var self = $(this);
+        var originGiven = $("#inputOrigin").val();
+        $("#inputOrigin").val(originGiven.slice(0,3));
+        var destinationGiven = $("#inputDestination").val();
+        $("#inputDestination").val(destinationGiven.slice(0,3));
+        $("#form_id").off("submit");
+        self.submit();
+    });
+
+    // const toLocationData = document.getElementById("toLocationData");
+
+    // function handleToLocation() {
+    //     let locationEl = "";
+    //     const toInput = document.getElementById("to").value;
+    //     if (toInput.length > 1) {
+    //         fetch(`/api/v1/flight/select_destination/${toInput}`)
+    //         .then((response) => response.json())
+    //         .then((data) => (toLocationArray = data.data));
+    //         if (toLocationArray) {
+    //         toLocationData.style.display = "block";
+    //         toLocationArray.map((location) => {
+    //             locationEl += '<div class="card mb-3 mt-3" onclick="getToLocation(\\\\ + location.iataCode + \\\\)">\\\\ <div class="card-header"><b>Name:</b> ' + location.name + ' </div>\\\\ <div class="card-body">\\\\ City Name: ' + location.address.cityName + "\\\\ <br />\\\\ Country Name: " + location.address.countryName + '\\\\ </div>\\\\ <div class="card-footer">\\\\          <b>SubType:</b> ' + location.subType + " \\\\ </div>\\\\ </div>";
+    //     });
+    //     }
+    //     }
+    //     toLocationData.innerHTML = locationEl;
+    // }
+
+    // function getToLocation(regionCode) {
+    // destinationCode = regionCode;
+    // toLocationData.style.display = "none";
+    // }
+                
+
+
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#inputOrigin").autocomplete({
+            source: "{% url 'origin_airport_search'%}",
+            minLength: 1,
+            delay: 200,
+        });
+    });
+</script>
+<script>
+$(document).ready(function () {
+    $("#inputDestination").autocomplete({
+        source: "{% url 'destination_airport_search'%}",
+        minLength: 1,
+        delay: 200,
+    });
+});
 </script>
 {% endblock %}

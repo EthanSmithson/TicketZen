@@ -684,15 +684,15 @@ nav li a:hover {
 }
 
 
-.searchbar-tickets-input {
+.searchbar-tickets-from {
     border-radius: 15px;
     height: 2.4vh;
-    width: 16vw;
+    width: 7vw;
     padding-bottom: 4px;
     padding-left: 8px;
 }
 
-.searchbar-tickets-input[type=text] {
+.searchbar-tickets-from[type=text] {
     font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
@@ -702,7 +702,7 @@ nav li a:hover {
     padding-top: 3px;
 }
 
-.searchbar-tickets-input::placeholder {
+.searchbar-tickets-from::placeholder {
     color: rgb(171, 171, 171);
     font-size: smaller;
     font-family: "Raleway", sans-serif;
