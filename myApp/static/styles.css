@@ -711,9 +711,76 @@ nav li a:hover {
     font-style: normal;
 }
 
+.searchbar-depart-date {
+    border-radius: 15px;
+    height: 2.4vh;
+    width: 7vw;
+    padding-left: 8px;
+    font-size: smaller;
+}
+
+.searchbar-depart-date[type=text] {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: smaller;
+    color: black;
+    padding-top: 3px;
+}
+
+.searchbar-depart-date::placeholder {
+    color: rgb(171, 171, 171);
+    font-size: smaller;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.searchbar-return-date {
+    border-radius: 15px;
+    height: 2.4vh;
+    width: 7vw;
+    padding-left: 8px;
+    font-size: smaller;
+}
+
+.searchbar-return-date[type=text] {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: smaller;
+    color: black;
+    padding-top: 3px;
+}
+
+.searchbar-return-date::placeholder {
+    color: rgb(171, 171, 171);
+    font-size: smaller;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
 .profile-list li a {
     text-decoration: none;
     color: black;
+}
+
+.searchTicketsBtn {
+    border-radius: 15px;
+    height: 2.5vh;
+    width: 7vw;
+    padding-bottom: 17px;
+    color: white;
+    font-size: smaller;
+    border: none;
+    background: rgb(255, 118, 68);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 6px 7px;
 }
 
 .main-section {
@@ -941,4 +1008,14 @@ nav li a:hover {
     height: 0%;
     width: 0%;
     opacity: 0;
+}
+
+.tickets-results {
+    width: 100%;
+    height: fit-content;
+}
+
+.results {
+    width: 100%;
+    height: fit-content;
 }

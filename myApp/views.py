@@ -222,6 +222,7 @@ def explore(request):
 
 
 def demo(request):
+    print(request.POST)
     # Retrieve data from the UI form
     origin = request.POST.get("Origin")
     destination = request.POST.get("Destination")
@@ -258,7 +259,7 @@ def demo(request):
             messages.add_message(
                 request, messages.ERROR, error.response.result["errors"][0]["detail"]
             )
-            return render(request, "demo/home.html", {})
+            return render(request, "tickets.html", {})
 
     # Perform flight search based on previous inputs
     if origin and destination and departure_date:
@@ -268,7 +269,7 @@ def demo(request):
             messages.add_message(
                 request, messages.ERROR, error.response.result["errors"][0]["detail"]
             )
-            return render(request, "demo/home.html", {})
+            return render(request, "tickets.html", {})
         search_flights_returned = []
         response = ""
         for flight in search_flights.data:
@@ -278,17 +279,17 @@ def demo(request):
 
         return render(
             request,
-            "demo/results.html",
+            "results.html",
             {
                 "response": response,
                 "origin": origin,
                 "destination": destination,
                 "departureDate": departure_date,
                 "returnDate": return_date,
-                "tripPurpose": tripPurpose
+                # "tripPurpose": tripPurpose
             },
         )
-    return render(request, "demo/home.html", {})
+    return render(request, "results.html", {})
 
 
 def book_flight(request, flight):

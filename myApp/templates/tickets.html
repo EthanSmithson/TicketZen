@@ -1,40 +1,46 @@
 {% extends 'home.html' %}
 {% block mainContent %}
-<div class="find-tickets-container">
+<div class="find-tickets-container" style="overflow-y: scroll;">
     <div class="tickets-header">
         <div class="searchbar-tickets">
-            <form method="POST" action="" enctype="multipart/form-data">
-                <fieldset>
+            <form method="POST" action="{% url 'demo' %}" id="form_id" enctype="multipart/form-data">
+                <fieldset style="    display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 40vw;">
                     {% csrf_token %}
                     <!-- <input onkeyup="handleToLocation()" id="to" class="searchbar-tickets-from" type="text" placeholder="From Destination">
                     <button type="submit">search</button> -->
                     <input  name="Origin" id="inputOrigin" class="searchbar-tickets-from" type="text" placeholder="From Destination">
                     <input  name="Destination" id="inputDestination" class="searchbar-tickets-from" type="text" placeholder="To Destination">
-                    <input  name="Departuredate" id="idDeparturedate" class="searchbar-tickets-from" type="date" placeholder="Departure Date">
-                    <input  name="Returndate" id="idReturndate" class="searchbar-tickets-from" type="date" placeholder="Return Date">
-                    <input  type="Submit" name="Submit" value="Search Flight" />
+                    <input  name="Departuredate" id="idDeparturedate" class="searchbar-depart-date" type="date" placeholder="Departure Date">
+                    <input  name="Returndate" id="idReturndate" class="searchbar-return-date" type="date" placeholder="Return Date">
+                    <input  type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" />
                 </fieldset>
             </form>
         </div>
-        <div id="toLocationData">
+        <!-- <div id="toLocationData">
 
-        </div>
-        <div id="filter" class="filter">
+        </div> -->
+        <!-- <div id="filter" class="filter">
             <p>Filters</p>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
               </svg>
-        </div>
-        <div id="filter-list" class="filter-list hidden-filter-list">
+        </div> -->
+        <!-- <div id="filter-list" class="filter-list hidden-filter-list">
             <ul>
                 <li>Tickets Type</li>
                 <li>Price</li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="tickets-results">
         <div class="results">
-            
+            {% block ticketResults %}
+
+            {% endblock %}
         </div>
     </div>
 </div>

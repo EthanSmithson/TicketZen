@@ -14,5 +14,6 @@ urlpatterns = [
     path('activate-user/<uidb64>/<token>', views.activate_user, name='activate'),
     path('origin_airport_search/', views.origin_airport_search, name='origin_airport_search'),
     path('destination_airport_search/', views.destination_airport_search, name='destination_airport_search'),
-    path('book_flight/<str:flight>/', views.book_flight, name='book_flight')
+    path('book_flight/<str:flight>/', views.book_flight, name='book_flight'),
+    path('demo/', views.demo, name='demo'),
 ]

@@ -1,16 +1,29 @@
+{% extends 'tickets.html' %}
 {% load static %}
-
+{% block ticketResults %}
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'demo/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <meta charset="UTF-8">
     <title>Amadeus Flight Booking</title>
 </head>
 <body>
-  <div class="row pt-5">
-    <div class="col-md-6">
-    <div class="col-md-12 offset-1">
+  <div class="row pt-5" style="display: flex;
+  flex-direction: column;
+  align-items: center;">
+    <div class="col-md-5">
+        <h3 class="login-heading pl-3">{{ origin }} &#x2708 {{ destination }} <br>{{ departureDate }}
+        {% if returnDate %} <span class="text-info">&#10594&#10596</span> {{ returnDate }}{% endif %}</h3>
+        {% if tripPurpose %} <h4 class="login-heading mb-4 mt-4 pl-3">Flying for <span style="font-size: 26;color: darkred;">{{ tripPurpose }} </span> purposes</h4> {% endif %}
+    </div>
+    <div class="" style="display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;">
+    <div class="" style="width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+    display: grid;">
         {% if response %}
             <h3 class="login-heading mb-4 text-left">Available flights</h3>
             {% for r, flight in response %}
@@ -25,7 +38,7 @@
                                     <h4><img src={{ r.0firstFlightAirlineLogo }} alt={{ r.0firstFlightAirline }}> {{ r.0firstFlightDepartureDate }} {{ r.0firstFlightDepartureAirport }}
                                         <a href="#" data-toggle="tooltip" class="nounderline text-info" title={{ r.0firstFlightArrivalDuration }} duration>&#10230</a> {{ r.0firstFlightArrivalAirport }} {{ r.0firstFlightArrivalDate }}</h4>
                                     {% if r.0secondFlightDepartureAirport %}
-                                        <p class="nounderline elegantstyle">Connection duration is {{ r.0stop_time }}</p>
+                                        <!-- <p class="nounderline elegantstyle">Connection duration is {{ r.0stop_time }}</p> -->
                                         <h4><img src={{ r.0secondFlightAirlineLogo }} alt={{ r.0secondFlightAirline }}> {{ r.0secondFlightDepartureDate }} {{ r.0secondFlightDepartureAirport }}
                                             <a href="#" data-toggle="tooltip" class="nounderline text-info" title={{ r.0secondFlightArrivalDuration }} duration>&#10230</a> {{ r.0secondFlightArrivalAirport }} {{ r.0secondFlightArrivalDate }}</h4>
                                     {% endif %}
@@ -50,21 +63,9 @@
         {% endif %}
     </div>
   </div>
-    <div class="col-md-5">
-        <h3 class="login-heading pl-3">{{ origin }} &#x2708 {{ destination }} <br>{{ departureDate }}
-        {% if returnDate %} <span class="text-info">&#10594&#10596</span> {{ returnDate }}{% endif %}</h3>
-        {% if tripPurpose %} <h4 class="login-heading mb-4 mt-4 pl-3">Flying for <span style="font-size: 26;color: darkred;">{{ tripPurpose }} </span> purposes</h4> {% endif %}
-    </div>
+    
   </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
 <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
@@ -73,3 +74,5 @@
 
 </body>
 </html>
+
+{% endblock %}
