@@ -52,16 +52,17 @@
         <div class="content-2">
             <div class="side-image">
             </div>
-            <div class="cards">
-                <div class="card-1">
-                    <div class="card-1-content">
-                        <img style="width: 225px;" src="{% static 'planeCard.png' %}"/>
-                    </div>
+            <div class="cards hidden2">
+                <p>With TicketZen You Will Find the Best Deals with Ease. Find Your Next adventure the right way!</p>
+                <!-- <div class="card-1">
                     <div class="card-1-title">
                         Airline tickets
                     </div>
-                </div>
-                <div class="card-2">
+                    <div class="card-1-content">
+                        <img style="width: 225px;" src="{% static 'planeCard.png' %}"/>
+                    </div>
+                </div> -->
+                <!-- <div class="card-2">
                     <div class="card-2-content">
                         <img style="width: 200px;" src="{% static 'cruiseCard.png' %}"/>
                     </div>
@@ -89,7 +90,7 @@
                     color: black;" class="card-4-title">
                         Train tickets
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -126,6 +127,21 @@
         const hiddenElements = document.querySelectorAll('.hidden');    
         
         hiddenElements.forEach((el) => observer.observe(el));
+
+
+        const observer2 = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show2');
+                } else {
+                    entry.target.classList.remove('show2');
+                }
+            });
+        })
+        
+        const hiddenElements2 = document.querySelectorAll('.hidden2');    
+        
+        hiddenElements2.forEach((el) => observer2.observe(el));
 
 
     </script>

@@ -425,7 +425,7 @@ nav li a:hover {
     display: grid;
     grid-template-columns: 58% 20%;
     grid-template-rows: 53% 20%;
-    margin-left: 57vw;
+    margin-left: 61vw;
 }
 
 .card-1, .card-2, .card-3, .card-4 {
@@ -648,7 +648,7 @@ nav li a:hover {
 .left-sidebar-collapse {
     height: 91vh;
     margin-top: -9vh;
-    width: 6vw;
+    width: 4vw;
     background-color: #ff87be;
     background-image: linear-gradient(61deg, #ff87be 0%, #ff9c5d 100%);
     display: flex;
@@ -873,7 +873,20 @@ nav li a:hover {
     transition: all 1s;
 }
 
+.hidden2 {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(100%);
+    transition: all 1s;
+}
+
 .show {
+    filter: blur(0);
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.show2 {
     filter: blur(0);
     transform: translateX(0);
     opacity: 1;
@@ -942,6 +955,7 @@ nav li a:hover {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding: .8rem;
 }
 
 .filter {
@@ -1018,4 +1032,14 @@ nav li a:hover {
 .results {
     width: 100%;
     height: fit-content;
+    margin-left: 11vw;
+}
+
+.cards p {
+    font-size: large;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    text-align: center;
 }

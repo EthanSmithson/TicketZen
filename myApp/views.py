@@ -221,13 +221,18 @@ def explore(request):
     return render(request, 'explore.html')
 
 
-def demo(request):
+def findTickets(request):
     print(request.POST)
     # Retrieve data from the UI form
-    origin = request.POST.get("Origin")
-    destination = request.POST.get("Destination")
+    origin = request.POST.get("Origin")[0:3]
+    destination = request.POST.get("Destination")[0:3]
     departure_date = request.POST.get("Departuredate")
     return_date = request.POST.get("Returndate")
+    uid = request.POST.get("uid")
+
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
 
     # Prepare url parameters for search
     kwargs = {
@@ -286,10 +291,11 @@ def demo(request):
                 "destination": destination,
                 "departureDate": departure_date,
                 "returnDate": return_date,
+                'form': myUser[0],
                 # "tripPurpose": tripPurpose
             },
         )
-    return render(request, "results.html", {})
+    return render(request, "results.html", {'form':myUser[0]})
 
 
 def book_flight(request, flight):

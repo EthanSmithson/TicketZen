@@ -3,7 +3,7 @@
 <div class="find-tickets-container" style="overflow-y: scroll;">
     <div class="tickets-header">
         <div class="searchbar-tickets">
-            <form method="POST" action="{% url 'demo' %}" id="form_id" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'findTickets' %}" id="form_id" enctype="multipart/form-data">
                 <fieldset style="    display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -16,6 +16,7 @@
                     <input  name="Destination" id="inputDestination" class="searchbar-tickets-from" type="text" placeholder="To Destination">
                     <input  name="Departuredate" id="idDeparturedate" class="searchbar-depart-date" type="date" placeholder="Departure Date">
                     <input  name="Returndate" id="idReturndate" class="searchbar-return-date" type="date" placeholder="Return Date">
+                    <input  name="uid" value="{{form.id}}" id="idReturndate" type="hidden">
                     <input  type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" />
                 </fieldset>
             </form>
@@ -71,6 +72,7 @@
         e.preventDefault();
         var self = $(this);
         var originGiven = $("#inputOrigin").val();
+        console.log(originGiven)
         $("#inputOrigin").val(originGiven.slice(0,3));
         var destinationGiven = $("#inputDestination").val();
         $("#inputDestination").val(destinationGiven.slice(0,3));
@@ -101,6 +103,8 @@
     // destinationCode = regionCode;
     // toLocationData.style.display = "none";
     // }
+    const originList = document.getElementById('ui-id-1');
+    originList.style.listStyle = "none";
                 
 
 
