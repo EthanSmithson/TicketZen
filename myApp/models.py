@@ -10,8 +10,11 @@ class User(models.Model):
     confirmed = models.IntegerField(default=0)
     activateUUID = models.CharField(max_length=255, default="")
 
-
     def __str__(self):
         return self.username
+    
 
+class savedTicket(models.Model):
+    uid = models.CharField(max_length=10, default="")
+    ticket = models.CharField(max_length=1000000000, default="")
 

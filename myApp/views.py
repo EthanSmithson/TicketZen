@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
-from .models import User
+from .models import User, savedTicket
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -219,6 +219,17 @@ def tickets(request):
 
 def explore(request):
     return render(request, 'explore.html')
+
+
+def save_ticket(request, flight, uid):
+    thisId = uid
+    users = User.objects.all()
+
+    myUser = users.filter(id=thisId).values()
+    print(flight)
+    newTicket = savedTicket(uid=thisId, ticket=flight)
+    newTicket.save()
+    return render(request, 'tickets.html', {'form':myUser[0]})
 
 
 def findTickets(request):
