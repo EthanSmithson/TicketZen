@@ -232,6 +232,21 @@ def save_ticket(request, flight, uid):
     return render(request, 'tickets.html', {'form':myUser[0]})
 
 
+def myTickets(request):
+    uid = request.GET.get('uid')
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
+    # print(myUser)
+    savedTickets = savedTicket.objects.all()
+    mysavedTickets = savedTickets.filter(uid=uid).values()
+    # print(mysavedTickets)
+
+    # myUser['ticket'] = savedTickets
+    
+    return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets[0]})
+
+
 def findTickets(request):
     print(request.POST)
     # Retrieve data from the UI form

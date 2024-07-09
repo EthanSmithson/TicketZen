@@ -17,4 +17,5 @@ urlpatterns = [
     path('book_flight/<str:flight>/', views.book_flight, name='book_flight'),
     path('findTickets/', views.findTickets, name='findTickets'),
     path('save_ticket/<str:flight>, <str:uid>', views.save_ticket, name='save_ticket'),
+    path('myTickets/', views.myTickets, name='myTickets'),
 ]

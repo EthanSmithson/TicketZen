@@ -18,3 +18,6 @@ class savedTicket(models.Model):
     uid = models.CharField(max_length=10, default="")
     ticket = models.CharField(max_length=1000000000, default="")
 
+    def __str__(self):
+        return self.uid
+
