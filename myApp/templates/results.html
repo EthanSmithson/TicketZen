@@ -12,7 +12,9 @@
   flex-direction: column;
   align-items: center;">
     <div class="col-md-5">
-        <h3 style="margin-left: 4vw;" class="login-heading pl-3">{{ origin }} &#x2708 {{ destination }} <br>{{ departureDate }}
+        <h3 style="text-align: center;
+        margin-left: -19vw;
+        margin-bottom: 5vh;" class="login-heading pl-3">{{ origin }} &#x2708 {{ destination }} <br>{{ departureDate }}
         {% if returnDate %} <span class="text-info">&#10594&#10596</span> {{ returnDate }}{% endif %}</h3>
         {% if tripPurpose %} <h4 class="login-heading mb-4 mt-4 pl-3">Flying for <span style="font-size: 26;color: darkred;">{{ tripPurpose }} </span> purposes</h4> {% endif %}
     </div>
@@ -38,7 +40,7 @@
                     background-color: #ff87be;
                     background-image: linear-gradient(-9deg, #ff87be 0%, #ff9c5d 100%);">
                         <div class="" style="font-size: 26;color: darkred;">${{ r.price }}
-                            <a href="{% url 'save_ticket' flight form.id %}" id="saveFlight"><input style="    background: coral;
+                            <a href="{% url 'save_ticket' r.0FlightTotalDuration r.0firstFlightDepartureDate r.0firstFlightDepartureAirport r.0firstFlightArrivalAirport r.0firstFlightArrivalDate r.1firstFlightDepartureAirport r.1FlightTotalDuration r.1firstFlightDepartureDate r.1firstFlightArrivalAirport r.1firstFlightArrivalDate origin destination departureDate returnDate r.price form.id %}" id="saveFlight"><input style="    background: coral;
                                 margin-left: 10vw;
                                 border-radius: 9px;
                                 Font-family: 'Raleway', sans-serif;

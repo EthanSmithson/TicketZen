@@ -221,15 +221,50 @@ def explore(request):
     return render(request, 'explore.html')
 
 
-def save_ticket(request, flight, uid):
+def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid):
     thisId = uid
     users = User.objects.all()
 
     myUser = users.filter(id=thisId).values()
-    print(flight)
-    newTicket = savedTicket(uid=thisId, ticket=flight)
+
+    newTicket = savedTicket(uid=thisId, zeroFlightTotalDuration=zeroFlightTotalDuration
+                            , zeroFirstFlightDepartureDate=zeroFirstFlightDepartureDate
+                            , zeroFirstFlightDepartureAirport=zeroFirstFlightDepartureAirport
+                            , zeroFirstFlightArrivalAirport=zeroFirstFlightArrivalAirport
+                            , zeroFirstFlightArrivalDate=zeroFirstFlightArrivalDate
+                            , oneFirstFlightDepartureAirport=oneFirstFlightDepartureAirport
+                            , oneFlightTotalDuration=oneFlightTotalDuration
+                            , oneFirstFlightDepartureDate=oneFirstFlightDepartureDate
+                            , oneFirstFlightArrivalAirport=oneFirstFlightArrivalAirport
+                            , oneFirstFlightArrivalDate=oneFirstFlightArrivalDate
+                            , origin=origin
+                            , destination=destination
+                            , departureDate=departureDate
+                            , returnDate=returnDate
+                            , price=price
+                        )
     newTicket.save()
     return render(request, 'tickets.html', {'form':myUser[0]})
+
+def delete_ticket(request, uid, id):
+    thisId = uid
+    ticketId = id
+    users = User.objects.all()
+
+    print(thisId, ticketId)
+
+    myUser = users.filter(id=thisId).values()
+
+    savedTickets = savedTicket.objects.all()
+
+    deleteTicket = savedTickets.filter(id=ticketId)
+    deleteTicket.delete()
+
+    mysavedTickets = savedTickets.filter(uid=thisId).values("zeroFlightTotalDuration", "zeroFirstFlightDepartureDate", "zeroFirstFlightDepartureAirport", "zeroFirstFlightArrivalAirport", "zeroFirstFlightArrivalDate", "oneFirstFlightDepartureAirport", "oneFlightTotalDuration", "oneFirstFlightDepartureDate", "oneFirstFlightArrivalAirport", "oneFirstFlightArrivalDate", "origin", "destination", "departureDate", "returnDate", "price", "id")
+
+    # myUser['ticket'] = savedTickets
+    
+    return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets})
 
 
 def myTickets(request):
@@ -239,12 +274,12 @@ def myTickets(request):
     myUser = users.filter(id=uid).values()
     # print(myUser)
     savedTickets = savedTicket.objects.all()
-    mysavedTickets = savedTickets.filter(uid=uid).values()
-    # print(mysavedTickets)
+    mysavedTickets = savedTickets.filter(uid=uid).values("zeroFlightTotalDuration", "zeroFirstFlightDepartureDate", "zeroFirstFlightDepartureAirport", "zeroFirstFlightArrivalAirport", "zeroFirstFlightArrivalDate", "oneFirstFlightDepartureAirport", "oneFlightTotalDuration", "oneFirstFlightDepartureDate", "oneFirstFlightArrivalAirport", "oneFirstFlightArrivalDate", "origin", "destination", "departureDate", "returnDate", "price", "id")
+    print(mysavedTickets)
 
     # myUser['ticket'] = savedTickets
     
-    return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets[0]})
+    return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets})
 
 
 def findTickets(request):

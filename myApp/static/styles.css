@@ -486,6 +486,11 @@ nav li a:hover {
     background: green;
     border-radius: 47px;
     z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff87be;
+    background-image: linear-gradient(61deg, #ff87be 0%, #ff9c5d 100%);
 }
 
 .profile-options-hide {
@@ -711,6 +716,11 @@ nav li a:hover {
     font-style: normal;
 }
 
+.searchbar-tickets-from:-webkit-autofill, .searchbar-tickets-from:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: #333;
+  }
+
 .searchbar-depart-date {
     border-radius: 15px;
     height: 2.4vh;
@@ -805,15 +815,16 @@ nav li a:hover {
 }
 
 .my-recents-header {
-  font-family: "Manrope", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
-  font-size: x-large;
-  font-style: normal;
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: large;
+    font-style: normal;
 }
 
 .my-recents-content {
     margin-left: 2vw;
+    width: 90%;
 }
 
 .explore-tickets  {
@@ -827,8 +838,8 @@ nav li a:hover {
 .explore-tickets-header {
     font-family: "Manrope", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 900;
-    font-size: x-large;
+    font-weight: 700;
+    font-size: large;
     font-style: normal;
 }
 
@@ -934,6 +945,7 @@ nav li a:hover {
 
 .explore-tickets-content {
     margin-left: 4vw;
+    width: 90%;
 }
 
 .find-tickets-container {
