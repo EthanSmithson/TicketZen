@@ -22,6 +22,7 @@ border-bottom: .2px solid #b5b5b5;
 width: 100%;
 margin-left: 0vw;">
     <a style="display: flex; flex-direction: row; text-decoration: none; align-items: center; margin-left: -1vw;" href="{% url 'home' %}?uid={{form.id}}" style="display: block; cursor: pointer;">
+        <input id="myId" type="hidden" value="{{form.id}}"/>
         <div class="logo-container-home">
             <svg class="logoHome" width="149" height="119" viewBox="0 0 149 119" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M70 57.5L10.75 104.698L10.75 10.3016L70 57.5Z" fill="#DD9F9F"/>
@@ -78,6 +79,7 @@ margin-left: 0vw;">
     <div id="left-sidebar" class="left-sidebar">
         <div class="left-sidebar-header">
             <p id="mySpace">My Space</p>
+            <input id="leftSidbarStatus" type="hidden" value="{{form.sidebarStatus}}" />
               <svg style="transition: all .3s;" id="collapse-leftsidebar" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
                 <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
               </svg>
@@ -136,7 +138,6 @@ margin-left: 0vw;">
                           display: flex;
                           justify-content: center;
                           align-items: center;"  class="swiper-slide">Slide 3</div>
-                          ...
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
@@ -152,29 +153,117 @@ margin-left: 0vw;">
             </div>
             <div class="explore-tickets">
                 <div class="explore-tickets-header">
-                    Explore
+                    Explore <br><small style="font-size: small;
+    font-weight: 400;">Based on Current Location: {{currentLocation}}</small>
                 </div>
                 <div class="explore-tickets-content">
-                    <div class="swiper">
+                    {% if inspiration %}
+                    <div class="swiper" style="height: 45vh;">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                           <!-- Slides -->
-                          <div style="text-align: center;
-                          font-size: 18px;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;" class="swiper-slide">Slide 1</div>
-                          <div style="text-align: center;
-                          font-size: 18px;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;"  class="swiper-slide">Slide 2</div>
-                          <div style="text-align: center;
-                          font-size: 18px;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;"  class="swiper-slide">Slide 3</div>
-                          ...
+                           {% if inspiration %}
+                            {% for i in inspiration %}
+                                <div style="text-align: center; height: 39vh;
+                                font-size: 18px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;" class="swiper-slide"><div id="myTicket" style="max-width: 40rem; width: 21vw;
+                                        height: fit-content;
+                                        background: peachpuff;
+                                        padding: 1.5rem;
+                                        display: flex;
+                                        flex-direction: column;
+                                        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+                                        background-color: #ff87be;
+                                        background-image: linear-gradient(-9deg, #ff87be 0%, #ff9c5d 100%);">
+                                        <div style="display: flex; flex-direction: row;">
+                                            <div class="" style="font-size: 26;color: darkred;display: flex;
+                                            font-size: 26;
+                                            color: darkred;
+                                            flex-direction: row;
+                                            margin-bottom: 1.5vh;">${{ i.price.total }}
+                                            </div>
+                                            <a href="{% url 'save_explore_ticket' i.price.total i.origin i.destination i.departureDate i.returnDate form.id %}" id="saveFlight"><input style="    background: coral;
+                                                margin-left: 10vw;
+                                                border-radius: 9px;
+                                                Font-family: 'Raleway', sans-serif;
+                                                font-optical-sizing: auto;
+                                                font-weight: 400;
+                                                font-style: normal;
+                                                color: white;
+                                                font-size: smaller;" type="Submit" name="bookFlight" value="Save Flight" /></a>
+                                        </div>
+                                            <div class="">
+                                                <div class="">
+                                                    <h4 style="font-optical-sizing: auto;
+                                                    font-weight: 700;
+                                                    font-style: normal;
+                                                    color: white; display: flex;
+                                                    flex-direction: column;"
+                                                    ">Departure From
+                                                    <h4 style="font-optical-sizing: auto;
+                                                        font-weight: 500;
+                                                        font-style: normal;
+                                                        font-size: larger;
+                                                        color: white;">{{ i.origin }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.destination }}</h4><br>
+                        <span style="font-optical-sizing: auto;
+                        font-weight: 500;
+                        font-style: normal;
+                        color: white; font-size: 15px;" class="smallstyle">Departure Date: {{ i.departureDate }}</span></h4>
+                                                        
+                                                            <!-- <p class="nounderline elegantstyle">Connection duration is {{ i.0stop_time }}</p> -->
+                                                            <!-- <h4 style="font-optical-sizing: auto;
+                                                            font-weight: 500;
+                                                            font-style: normal;
+                                                            font-size: larger;
+                                                            color: white;"><img src={{ i.zeroSecondFlightAirlineLogo }} alt={{ i.zeroSecondFlightAirline }}> {{ i.zeroSecondFlightDepartureDate }} {{ i.zeroSecondFlightDepartureAirport }}
+                                                                <a href="#" data-toggle="tooltip" class="nounderline text-info" title={{ i.zeroSecondFlightArrivalDuration }} duration>&#10230</a> {{ i.zeroSecondFlightArrivalAirport }} {{ i.zeroSecondFlightArrivalDate }}</h4> -->
+                                                    <hr class="">
+                                                    <h4 style="font-optical-sizing: auto;
+                                                    font-weight: 700;
+                                                    font-style: normal;
+                                                    color: white; display: flex;
+                                                    flex-direction: column;" class="">Return To
+                                                    <h4 style="font-optical-sizing: auto;
+                                                    font-weight: 500;
+                                                    font-style: normal;
+                                                    font-size: larger;
+                                                    color: white;">{{ i.destination }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.origin }}</h4><br>
+                        <span style="font-optical-sizing: auto;
+                        font-weight: 500;
+                        font-style: normal;
+                        color: white; font-size: 15px;" class="smallstyle">Return Date: {{ i.returnDate }}</span></h4></h4>
+                                                            
+                                                                <!-- <p class="">Connection duration is {{ i.1stop_time }}</p> -->
+                                                                <!-- <h4 style="font-optical-sizing: auto;
+                                                                font-weight: 500;
+                                                                font-style: normal;
+                                                                font-size: larger;
+                                                                color: white;"><img src={{ i.oneSeconddFlightAirlineLogo }} alt={{ i.oneSeconddFlightAirline }}> {{ i.oneSeconddFlightDepartureDate }} {{ i.oneSeconddFlightDepartureAirport }}
+                                                                    <a href="#" data-toggle="tooltip" class="" title={{ i.oneSeconddFlightArrivalDuration }} duration>&#10230</a> {{ i.oneSeconddFlightArrivalAirport }} {{ i.oneSeconddFlightArrivalDate }}</h4> -->
+                                                </div>
+                                            </div>
+                                        </div></div>
+                                {% endfor %}
+                            {% else %}
+                            <div style="text-align: center;
+                            font-size: 18px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;text-align: center;
+                font-size: 18px;
+                justify-content: center;
+                align-items: center;
+                width: 1128px;
+                display: flex;
+                flex-direction: column;font-family: 'Raleway', sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 700;
+                font-style: normal;
+                font-size: medium;"  class="swiper-slide">Save Some Tickets!
+                            <img style="width: 6vw; margin-top: 2vh;" src="{% static 'treeZen.png' %}"/></div>
+                            {% endif %}
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
@@ -186,6 +275,11 @@ margin-left: 0vw;">
                         <!-- If we need scrollbar -->
                         <!-- <div class="swiper-scrollbar"></div> -->
                       </div>
+                    {% else %}
+                    <div class="inspirationError">
+                        {{inspirationError}}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         {% endblock %}
@@ -254,37 +348,80 @@ margin-left: 0vw;">
         }
     })
 
-    const leftSidebarCookie = "leftsidebarCollapse";
-    console.log(leftSidebarCookie)
-    const collapseCookieValue = getCookie(leftSidebarCookie)
-    console.log(collapseCookieValue)
+    // const leftSidebarCookie = "leftsidebarCollapse";
+    // console.log(leftSidebarCookie)
+    // const collapseCookieValue = getCookie(leftSidebarCookie)
+    // console.log(collapseCookieValue)
 
-    function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
+    // function getCookie(cname) {
+    // let name = cname + "=";
+    // let ca = document.cookie.split(';');
+    // for(let i = 0; i < ca.length; i++) {
+    //     let c = ca[i];
+    //     while (c.charAt(0) == ' ') {
+    //     c = c.substring(1);
+    //     }
+    //     if (c.indexOf(name) == 0) {
+    //     return c.substring(name.length, c.length);
+    //     }
+    // }
+    // return "";
+    // }
+
+    // if (collapseCookieValue == "true") {
+    //     leftSidebar.classList.add('left-sidebar-collapse');
+    //         leftSidebar.classList.remove('left-sidebar');
+    //         console.log(leftSidebarP[0])
+    //         mySpace.style.display = "none";
+    //         for (let i =0; i < leftSidebarP.length; i++) {
+    //             leftSidebarP[i].style.transition = "all 1s";
+    //             leftSidebarP[i].style.display = "none";
+    //         }
+    //         collapse.classList.add('rotate-collapse'); 
+    // }
+    const leftSidbarStatus = document.getElementById("leftSidbarStatus");
+    const collapseleftsidebar = document.getElementById('collapse-leftsidebar');
+    const myId = document.getElementById("myId").value;
+    
+    collapseleftsidebar.addEventListener('click', () => updateSidebarStatus(myId))
+
+    function updateSidebarStatus() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log("worked");
         }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+        };
+        var id = myId
+        xhttp.open('GET', `updateSidebarStatus?data=` + id, true);
+        xhttp.send();
+    
     }
 
-    if (collapseCookieValue == "true") {
+    const sidebarStatus = document.getElementById('leftSidbarStatus');
+
+    if (sidebarStatus.value == 1) {
+        leftSidebar.classList.remove('left-sidebar-collapse');
+        leftSidebar.classList.add('left-sidebar');
+        mySpace.style.display = "block";
+        for (let i =0; i < leftSidebarP.length; i++) {
+            leftSidebarP[i].style.display = "block";
+        }
+        collapse.classList.remove('rotate-collapse'); 
+    } else if (sidebarStatus.value == 0) {
+        leftSidebar.style.transitionDuration = "0ms;"
         leftSidebar.classList.add('left-sidebar-collapse');
-            leftSidebar.classList.remove('left-sidebar');
-            console.log(leftSidebarP[0])
-            mySpace.style.display = "none";
-            for (let i =0; i < leftSidebarP.length; i++) {
-                leftSidebarP[i].style.transition = "all 1s";
-                leftSidebarP[i].style.display = "none";
-            }
-            collapse.classList.add('rotate-collapse'); 
-    }
+        leftSidebar.classList.remove('left-sidebar');
+        console.log(leftSidebarP[0])
+        mySpace.style.display = "none";
+        for (let i =0; i < leftSidebarP.length; i++) {
+            leftSidebarP[i].style.transition = "all 1s";
+            leftSidebarP[i].style.display = "none";
+        }
+        collapse.classList.add('rotate-collapse'); 
+        }
+        
+
 
     const swiper = new Swiper('.swiper', {
         // Optional parameters

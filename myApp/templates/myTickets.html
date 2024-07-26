@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 {% load static %}
 {% block mainContent %}
-
+<link href="{% static 'styles.css' %}" rel="stylesheet" type="text/css">
 <div class="my-recents">
     <div class="my-recents-header">
         Saved Tickets
@@ -53,10 +53,16 @@
                                         font-weight: 500;
                                         font-style: normal;
                                         font-size: larger;
-                                        color: white;">{{ i.origin }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.destination }}</h4><span style="font-optical-sizing: auto;
+                                        color: white;">{{ i.origin }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.destination }}</h4>{% if i.zeroFlightTotalDuration %}<span class="" style="font-optical-sizing: auto;
         font-weight: 500;
         font-style: normal;
-        color: white; font-size: 15px;" class="smallstyle">Total duration {{ i.zeroFlightTotalDuration }}</span><br>
+        color: white; font-size: 15px;">Total duration {{ i.zeroFlightTotalDuration }}</span>
+        {% else %}
+        <span class="" style="font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        color: white; font-size: 15px;">Total duration N/A</span>
+        {% endif %}<br>
         <span style="font-optical-sizing: auto;
         font-weight: 500;
         font-style: normal;
@@ -79,10 +85,17 @@
                                     font-weight: 500;
                                     font-style: normal;
                                     font-size: larger;
-                                    color: white;">{{ i.destination }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.origin }}</h4><span class="" style="font-optical-sizing: auto;
+                                    color: white;">{{ i.destination }}&nbsp;&nbsp;&nbsp;&#10230&nbsp;&nbsp;&nbsp;{{ i.origin }}</h4>{% if i.oneFlightTotalDuration %}<span class="" style="font-optical-sizing: auto;
         font-weight: 500;
         font-style: normal;
-        color: white; font-size: 15px;">Total duration {{ i.oneFlightTotalDuration }}</span><br>
+        color: white; font-size: 15px;">Total duration {{ i.oneFlightTotalDuration }}</span>
+        {% else %}
+        <span class="" style="font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        color: white; font-size: 15px;">Total duration N/A</span>
+        {% endif %}
+        <br>
         <span style="font-optical-sizing: auto;
         font-weight: 500;
         font-style: normal;

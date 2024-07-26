@@ -29,6 +29,7 @@ import json
 import ast
 from .flight import Flight
 from .booking import Booking
+import geocoder
 
 
 amadeus = Client(
@@ -198,6 +199,19 @@ def login(request):
         form = LoginForm(None)   
         return render(request, 'login.html', {'form':form})
     
+def updateSidebarStatus(request):
+    id = request.GET.get('data')
+    users = User.objects.all()
+    myUser = users.filter(id=id).values()[0]
+    myUserSidebar = myUser["sidebarStatus"]
+
+    if myUserSidebar == 1 :
+        User.objects.filter(id=id).update(sidebarStatus = 0)
+    else :
+        User.objects.filter(id=id).update(sidebarStatus = 1)
+
+    return HttpResponse(status=200)
+    
 
 def home(request):
 
@@ -206,7 +220,36 @@ def home(request):
 
     myUser = users.filter(id=uid).values()
 
-    return render(request, 'home.html', {'form':myUser[0]})
+    g = geocoder.ip("me")
+    print(g.latlng)
+
+    data = amadeus.reference_data.locations.airports.get(
+                latitude=g.latlng[0], longitude=g.latlng[1]
+            ).data
+    
+    print(data[0])
+
+    closestAirport = data[0]
+    closestAirportCode = closestAirport["iataCode"]
+    print(closestAirportCode)
+    closestAirportName = closestAirport["name"]
+
+    try:
+        data2 = amadeus.shopping.flight_destinations.get(
+                    origin="MAD"
+                ).data
+        
+        print(data2)
+        inspirationResult = data2
+    except:
+        inspirationResult = None
+        inspirationResultError = "No New Flights based " + closestAirportName
+
+    if inspirationResult == None:
+        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspirationError':inspirationResultError})
+    else:
+        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspiration': inspirationResult})
+    
 
 def tickets(request):  
     print(request.GET.get('uid'))
@@ -219,6 +262,23 @@ def tickets(request):
 
 def explore(request):
     return render(request, 'explore.html')
+
+
+def save_explore_ticket(request, total, origin, destination, departureDate, returnDate, uid):
+    thisId = uid
+    users = User.objects.all()
+
+    myUser = users.filter(id=thisId).values()
+    
+    newTicket = savedTicket(uid=thisId
+                            , price=total
+                            , origin=origin
+                            , destination=destination
+                            , departureDate=departureDate
+                            , returnDate=returnDate
+                        )
+    newTicket.save()
+    return render(request, 'home.html', {'form':myUser[0]})
 
 
 def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid):

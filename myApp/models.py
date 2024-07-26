@@ -9,6 +9,7 @@ class User(models.Model):
     email = models.EmailField(max_length=255, default="")
     confirmed = models.IntegerField(default=0)
     activateUUID = models.CharField(max_length=255, default="")
+    sidebarStatus = models.IntegerField(default=0)
 
     def __str__(self):
         return self.username
