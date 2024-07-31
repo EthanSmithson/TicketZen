@@ -36,3 +36,15 @@ class savedTicket(models.Model):
     def __str__(self):
         return self.uid
 
+
+class recentSearch(models.Model):
+    uid = models.CharField(max_length=10, default="")
+    origin = models.CharField(max_length=100, default="")
+    destination = models.CharField(max_length=100, default="")
+    departureDate = models.CharField(max_length=100, default="")
+    returnDate = models.CharField(max_length=100, default="")
+    creationDtTm = models.CharField(max_length=100, default="")
+
+    def __str__(self):
+        return self.uid
+

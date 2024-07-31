@@ -23,7 +23,7 @@
                     <input  name="Departuredate" id="idDeparturedate" class="searchbar-depart-date" type="date" placeholder="Departure Date">
                     <input  name="Returndate" id="idReturndate" class="searchbar-return-date" type="date" placeholder="Return Date">
                     <input  name="uid" value="{{form.id}}" type="hidden">
-                    <input  type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" />
+                    <div id="searchBtn" onclick="searchRecentPost('test1', 'test2')" style="width: fit-content;height: fit-content;"><input type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" /></div>
                 </fieldset>
             </form>
         </div>
@@ -111,6 +111,13 @@
     // }
     const originList = document.getElementById('ui-id-1');
     originList.style.listStyle = "none";
+
+    // const searchBtn = document.getElementById('searchBtn');
+    // const loadingBuffer = document.getElementById('loadingBuffer');
+    // function showLoadingBuffer() {
+    //     loadingBuffer.style.display = "block";
+    // }
+    
                 
 
 

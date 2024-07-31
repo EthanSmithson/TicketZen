@@ -24,4 +24,5 @@ urlpatterns = [
     path('home/updateSidebarStatus', views.updateSidebarStatus, name='updateSidebarStatus'),
     path('login/updateSidebarStatus', views.updateSidebarStatus, name='updateSidebarStatus'),
     path('myTickets/updateSidebarStatus', views.updateSidebarStatus, name='updateSidebarStatus'),
+    path('searchRecent', views.searchRecent, name='searchRecent'),
 ]

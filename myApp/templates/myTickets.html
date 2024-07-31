@@ -3,13 +3,14 @@
 {% block mainContent %}
 <link href="{% static 'styles.css' %}" rel="stylesheet" type="text/css">
 <div class="my-recents">
-    <div class="my-recents-header">
+    <div style="width: 8vw;" class="my-recents-header">
         Saved Tickets
     </div>
     <div style="width: 89%;" class="my-recents-content">
         <div class="swiper" style="height: 45vh;">
             <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
+            <div style="justify-content: center;
+    display: flex;" class="swiper-wrapper">
               <!-- Slides -->
                {% if tickets %}
                 {% for i in tickets %}
@@ -47,7 +48,7 @@
                                     font-weight: 700;
                                     font-style: normal;
                                     color: white; display: flex;
-                                    flex-direction: column;"
+                                    flex-direction: column;
                                     ">Departure From
                                     <h4 style="font-optical-sizing: auto;
                                         font-weight: 500;

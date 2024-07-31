@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
-from .models import User, savedTicket
+from .models import User, savedTicket, recentSearch
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -180,11 +180,46 @@ def login(request):
         user = User.objects.all()
 
         myUser = user.filter(email=email).values()
+        getID = myUser[0]
+        myID = getID['id']
+
+        recentSearches = recentSearch.objects.all()
+        myRecentSearches = recentSearches.filter(uid=myID).values()
+        # print(myRecentSearches)
+
+        g = geocoder.ip("me")
+        print(g.latlng)
+
+        data = amadeus.reference_data.locations.airports.get(
+                    latitude=g.latlng[0], longitude=g.latlng[1]
+                ).data
+        
+        # print(data[0])
+
+        closestAirport = data[0]
+        closestAirportCode = closestAirport["iataCode"]
+        print(closestAirportCode)
+        closestAirportName = closestAirport["name"]
+
+        try:
+            data2 = amadeus.shopping.flight_destinations.get(
+                        origin="MAD"
+                    ).data
+            
+            # print(data2)
+            inspirationResult = data2
+        except:
+            inspirationResult = None
+            inspirationResultError = "No New Flights based " + closestAirportName
 
         # print(myUser[0])
 
         if user.filter(email=email, password=password, confirmed = 1).exists():
-            return render(request, 'home.html', {'form':myUser[0]})
+            if inspirationResult == None:
+                return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspirationError':inspirationResultError, 'recents':myRecentSearches})
+            else:
+                return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspiration': inspirationResult, 'recents':myRecentSearches})
+            # return render(request, 'home.html', {'form':myUser[0]})
 
         else:         
             form = LoginForm(None)   
@@ -211,6 +246,93 @@ def updateSidebarStatus(request):
         User.objects.filter(id=id).update(sidebarStatus = 1)
 
     return HttpResponse(status=200)
+
+@csrf_exempt
+def searchRecent(request):
+    id = request.POST.get("id")
+    uid = request.POST.get("uid")
+    # myRecentSearchId = request.POST.get("id")
+    # allRecentsSearches = recentSearch.objects.all()
+    # myRecentSearch = allRecentsSearches.filter(id=myRecentSearchId).values()[0]
+
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
+
+    origin = request.POST.get("origin")
+    destination = request.POST.get("destination")
+    departure_date = request.POST.get("departureDate")
+    return_date = request.POST.get("returnDate")
+
+    # origin = myRecentSearch['origin']
+    # destination = myRecentSearch['destination']
+    # departure_date = myRecentSearch['departureDate']
+    # return_date = myRecentSearch['returnDate']
+    # uid = myRecentSearch['uid']
+
+    kwargs = {
+        "originLocationCode": origin,
+        "destinationLocationCode": destination,
+        "departureDate": departure_date,
+        "adults": 1,
+    }
+
+    # For a round trip, we use AI Trip Purpose Prediction
+    # to predict if it is a leisure or business trip
+    tripPurpose = ""
+    if return_date:
+        # Adds the parameter returnDate for the Flight Offers Search API call
+        kwargs["returnDate"] = return_date
+        kwargs_trip_purpose = {
+            "originLocationCode": origin,
+            "destinationLocationCode": destination,
+            "departureDate": departure_date,
+            "returnDate": return_date,
+        }
+        try:
+            # Calls Trip Purpose Prediction API
+            trip_purpose_response = amadeus.travel.predictions.trip_purpose.get(
+                **kwargs_trip_purpose
+            ).data
+            tripPurpose = trip_purpose_response["result"]
+        except ResponseError as error:
+            messages.add_message(
+                request, messages.ERROR, error.response.result["errors"][0]["detail"]
+            )
+            return render(request, "tickets.html", {'form':myUser[0]})
+
+    # Perform flight search based on previous inputs
+    if origin and destination and departure_date:
+        try:
+            search_flights = amadeus.shopping.flight_offers_search.get(**kwargs)
+        except ResponseError as error:
+            messages.add_message(
+                request, messages.ERROR, error.response.result["errors"][0]["detail"]
+            )
+            return render(request, "tickets.html", {'form':myUser[0]})
+        search_flights_returned = []
+        response = ""
+        for flight in search_flights.data:
+            offer = Flight(flight).construct_flights()
+            search_flights_returned.append(offer)
+            response = zip(search_flights_returned, search_flights.data)
+
+        return render(
+            request,
+            "results.html",
+            {
+                "response": response,
+                "origin": origin,
+                "destination": destination,
+                "departureDate": departure_date,
+                "returnDate": return_date,
+                'form': myUser[0],
+                # "tripPurpose": tripPurpose
+            },
+        )
+    return render(request, "results.html", {'form':myUser[0]})
+
+    # return render(request, 'tickets.html')
     
 
 def home(request):
@@ -222,6 +344,9 @@ def home(request):
 
     g = geocoder.ip("me")
     print(g.latlng)
+
+    recentSearches = recentSearch.objects.all()
+    myRecentSearches = recentSearches.filter(uid=uid).values()
 
     data = amadeus.reference_data.locations.airports.get(
                 latitude=g.latlng[0], longitude=g.latlng[1]
@@ -246,9 +371,9 @@ def home(request):
         inspirationResultError = "No New Flights based " + closestAirportName
 
     if inspirationResult == None:
-        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspirationError':inspirationResultError})
+        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspirationError':inspirationResultError, 'recents':myRecentSearches})
     else:
-        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspiration': inspirationResult})
+        return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspiration': inspirationResult, 'recents':myRecentSearches})
     
 
 def tickets(request):  
@@ -350,6 +475,15 @@ def findTickets(request):
     departure_date = request.POST.get("Departuredate")
     return_date = request.POST.get("Returndate")
     uid = request.POST.get("uid")
+
+    recentSearchedTicket = recentSearch(uid=uid
+                            , origin=origin
+                            , destination=destination
+                            , departureDate=departure_date
+                            , returnDate=return_date
+                        )
+    
+    recentSearchedTicket.save()
 
     users = User.objects.all()
 
