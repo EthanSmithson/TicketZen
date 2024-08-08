@@ -18,12 +18,22 @@
                     {% csrf_token %}
                     <!-- <input onkeyup="handleToLocation()" id="to" class="searchbar-tickets-from" type="text" placeholder="From Destination">
                     <button type="submit">search</button> -->
-                    <input  name="Origin" id="inputOrigin" class="searchbar-tickets-from" type="text" placeholder="From Destination">
+                    <input style="margin-left: -5vw;" name="Origin" id="inputOrigin" class="searchbar-tickets-from" type="text" placeholder="From Destination">
                     <input  name="Destination" id="inputDestination" class="searchbar-tickets-from" type="text" placeholder="To Destination">
-                    <input  name="Departuredate" id="idDeparturedate" class="searchbar-depart-date" type="date" placeholder="Departure Date">
-                    <input  name="Returndate" id="idReturndate" class="searchbar-return-date" type="date" placeholder="Return Date">
+                    <span style="    font-size: smaller;
+                    color: white;
+                    width: 14vw;
+                    font-weight: 700;
+                    padding-left: 1vw; margin-left: -1vw;">Departure Date:</span>
+                    <input style="width: 11vw; margin-left: -2vw; margin-right: .5vw;" name="Departuredate" id="idDeparturedate" class="searchbar-depart-date" type="date" placeholder="Departure Date">
+                    <span style="    font-size: smaller;
+                    color: white;
+                    width: 12vw;
+                    font-weight: 700;
+                    padding-left: 1vw; margin-left: -1vw;">Return Date:</span>
+                    <input style="width: 11vw; margin-left: -2vw;" name="Returndate" id="idReturndate" class="searchbar-return-date" type="date" placeholder="Return Date">
                     <input  name="uid" value="{{form.id}}" type="hidden">
-                    <div id="searchBtn" onclick="searchRecentPost('test1', 'test2')" style="width: fit-content;height: fit-content;"><input type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" /></div>
+                    <div id="searchBtn" onclick="searchRecentPost('test1', 'test2')" style="width: fit-content;height: fit-content; margin-right: -4vw; margin-left: 1.2vw; margin-top: -.7vh;"><input type="Submit" class="searchTicketsBtn" name="Submit" value="Search Flight" /></div>
                 </fieldset>
             </form>
         </div>

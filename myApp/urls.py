@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('tickets/', views.tickets, name='tickets'),
+    path('searchedLookup/', views.searchedLookup, name='searchedLookup'),
     # path('findTickets/', views.findTickets, name='findTickets'),
     path('home/', views.home, name='home'),
     path('explore/', views.explore, name='explore'),
@@ -16,7 +17,7 @@ urlpatterns = [
     path('destination_airport_search/', views.destination_airport_search, name='destination_airport_search'),
     path('book_flight/<str:flight>/', views.book_flight, name='book_flight'),
     path('findTickets/', views.findTickets, name='findTickets'),
-    path('save_ticket/<str:zeroFlightTotalDuration>,<str:zeroFirstFlightDepartureDate>,<str:zeroFirstFlightDepartureAirport>,<str:zeroFirstFlightArrivalAirport>,<str:zeroFirstFlightArrivalDate>,<str:oneFirstFlightDepartureAirport>,<str:oneFlightTotalDuration>,<str:oneFirstFlightDepartureDate>,<str:oneFirstFlightArrivalAirport>,<str:oneFirstFlightArrivalDate>,<str:origin>,<str:destination>, <str:departureDate>, <str:returnDate>,<str:price>,<str:uid>', views.save_ticket, name='save_ticket'),
+    path('save_ticket/<str:zeroFlightTotalDuration>,<str:zeroFirstFlightDepartureDate>,<str:zeroFirstFlightDepartureAirport>,<str:zeroFirstFlightArrivalAirport>,<str:zeroFirstFlightArrivalDate>,<str:oneFirstFlightDepartureAirport>,<str:oneFlightTotalDuration>,<str:oneFirstFlightDepartureDate>,<str:oneFirstFlightArrivalAirport>,<str:oneFirstFlightArrivalDate>,<str:origin>,<str:destination>, <str:departureDate>, <str:returnDate>,<str:price>,<str:uid>,<str:originLocation>,<str:destinationLocation>', views.save_ticket, name='save_ticket'),
     path('save_explore_ticket/<str:total>,<str:origin>,<str:destination>,<str:departureDate>,<str:returnDate>,<str:uid>', views.save_explore_ticket, name='save_explore_ticket'),
     path('myTickets/', views.myTickets, name='myTickets'),
     path('delete_ticket/<str:uid>,<str:id>', views.delete_ticket, name='delete_ticket'),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('login/updateSidebarStatus', views.updateSidebarStatus, name='updateSidebarStatus'),
     path('myTickets/updateSidebarStatus', views.updateSidebarStatus, name='updateSidebarStatus'),
     path('searchRecent', views.searchRecent, name='searchRecent'),
+    path('myRecents', views.myRecents, name='myRecents'),
 ]

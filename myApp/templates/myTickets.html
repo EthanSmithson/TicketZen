@@ -6,19 +6,20 @@
     <div style="width: 8vw;" class="my-recents-header">
         Saved Tickets
     </div>
+    <input id="searchedId" type="hidden" value="{{searchedId}}" />
     <div style="width: 89%;" class="my-recents-content">
         <div class="swiper" style="height: 45vh;">
             <!-- Additional required wrapper -->
-            <div style="justify-content: center;
+            <div id="recentList" style="justify-content: center;
     display: flex;" class="swiper-wrapper">
               <!-- Slides -->
                {% if tickets %}
                 {% for i in tickets %}
-                <div style="text-align: center; height: 39vh;
+                <div id="recentItem" style="text-align: center; height: 39vh;
                 font-size: 18px;
                 display: flex;
                 justify-content: center;
-                align-items: center;" class="swiper-slide"><div id="myTicket" style="max-width: 40rem; width: 21vw;
+                align-items: center;" class="swiper-slide"><div id="myTicket_{{i.id}}" style="max-width: 40rem; width: 21vw;
                         height: fit-content;
                         background: peachpuff;
                         padding: 1.5rem;
@@ -145,7 +146,7 @@
     </div>
 </div>
 
-<script>            
-
+<script>      
+    
 </script>
 {% endblock %}

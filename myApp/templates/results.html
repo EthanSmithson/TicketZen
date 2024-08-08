@@ -39,8 +39,10 @@
                     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
                     background-color: #ff87be;
                     background-image: linear-gradient(-9deg, #ff87be 0%, #ff9c5d 100%);">
+                    <input type="hidden" value="{{originLocation}}">
+                    <input type="hidden" value="{{destinationLocation}}">
                         <div class="" style="font-size: 26;color: darkred;">${{ r.price }}
-                            <a href="{% url 'save_ticket' r.0FlightTotalDuration r.0firstFlightDepartureDate r.0firstFlightDepartureAirport r.0firstFlightArrivalAirport r.0firstFlightArrivalDate r.1firstFlightDepartureAirport r.1FlightTotalDuration r.1firstFlightDepartureDate r.1firstFlightArrivalAirport r.1firstFlightArrivalDate origin destination departureDate returnDate r.price form.id %}" id="saveFlight"><input style="    background: coral;
+                            <a href="{% url 'save_ticket' r.0FlightTotalDuration r.0firstFlightDepartureDate r.0firstFlightDepartureAirport r.0firstFlightArrivalAirport r.0firstFlightArrivalDate r.1firstFlightDepartureAirport r.1FlightTotalDuration r.1firstFlightDepartureDate r.1firstFlightArrivalAirport r.1firstFlightArrivalDate origin destination departureDate returnDate r.price form.id originLocation destinationLocation %}" id="saveFlight"><input style="    background: coral;
                                 margin-left: 10vw;
                                 border-radius: 9px;
                                 Font-family: 'Raleway', sans-serif;

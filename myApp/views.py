@@ -30,6 +30,7 @@ import ast
 from .flight import Flight
 from .booking import Booking
 import geocoder
+import datetime
 
 
 amadeus = Client(
@@ -348,6 +349,12 @@ def home(request):
     recentSearches = recentSearch.objects.all()
     myRecentSearches = recentSearches.filter(uid=uid).values()
 
+    dateDiff = datetime.date.today() - datetime.timedelta(days=2)
+    print(dateDiff)
+    deleteOldRecents = recentSearches.filter(uid=uid, creationDtTm__lte=dateDiff)
+    print(deleteOldRecents)
+    deleteOldRecents.delete()
+
     data = amadeus.reference_data.locations.airports.get(
                 latitude=g.latlng[0], longitude=g.latlng[1]
             ).data
@@ -374,6 +381,36 @@ def home(request):
         return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspirationError':inspirationResultError, 'recents':myRecentSearches})
     else:
         return render(request, 'home.html', {'form':myUser[0], 'currentLocation':closestAirportName, 'inspiration': inspirationResult, 'recents':myRecentSearches})
+    
+def myRecents(request):
+    searchKey = request.GET.get('searchKey')
+    id = request.GET.get("id")
+    resultList = []
+    # print(searchKey)
+    myRecents = savedTicket.objects.all()
+    filteredRecents = myRecents.filter(origin__icontains=searchKey, uid=id).values("id", "origin", "destination", "departureDate", "returnDate", "uid") | myRecents.filter(destination__icontains=searchKey, uid=id).values("id", "origin", "destination", "departureDate", "returnDate", "uid")
+    print(filteredRecents)
+
+    # print("this: " + json.dumps(list(filteredRecents)))
+    html = render_to_string('searched.html', {'data': filteredRecents})
+    
+    return HttpResponse(html)
+
+@csrf_exempt
+def searchedLookup(request):
+    id = request.POST.get("id")
+    uid = request.POST.get("uid")
+
+    print(request.POST)
+
+    users = User.objects.all()
+
+    myUser = users.filter(id=uid).values()
+    # print(myUser)
+    savedTickets = savedTicket.objects.all()
+    mysavedTickets = savedTickets.filter(uid=uid).values("zeroFlightTotalDuration", "zeroFirstFlightDepartureDate", "zeroFirstFlightDepartureAirport", "zeroFirstFlightArrivalAirport", "zeroFirstFlightArrivalDate", "oneFirstFlightDepartureAirport", "oneFlightTotalDuration", "oneFirstFlightDepartureDate", "oneFirstFlightArrivalAirport", "oneFirstFlightArrivalDate", "origin", "destination", "departureDate", "returnDate", "price", "id", "uid")
+
+    return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets, 'searchedId': id})
     
 
 def tickets(request):  
@@ -406,7 +443,7 @@ def save_explore_ticket(request, total, origin, destination, departureDate, retu
     return render(request, 'home.html', {'form':myUser[0]})
 
 
-def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid):
+def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid, originLocation, destinationLocation):
     thisId = uid
     users = User.objects.all()
 
@@ -427,6 +464,8 @@ def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, 
                             , departureDate=departureDate
                             , returnDate=returnDate
                             , price=price
+                            , originLocation=originLocation
+                            , destinationLocation=destinationLocation
                         )
     newTicket.save()
     return render(request, 'tickets.html', {'form':myUser[0]})
@@ -475,12 +514,15 @@ def findTickets(request):
     departure_date = request.POST.get("Departuredate")
     return_date = request.POST.get("Returndate")
     uid = request.POST.get("uid")
+    originLocation = request.POST.get("Origin").replace(",", "")
+    destinationLocation = request.POST.get("Destination").replace(",", "")
 
     recentSearchedTicket = recentSearch(uid=uid
                             , origin=origin
                             , destination=destination
                             , departureDate=departure_date
                             , returnDate=return_date
+                            , creationDtTm=datetime.date.today()
                         )
     
     recentSearchedTicket.save()
@@ -525,6 +567,7 @@ def findTickets(request):
     if origin and destination and departure_date:
         try:
             search_flights = amadeus.shopping.flight_offers_search.get(**kwargs)
+            print(search_flights.data)
         except ResponseError as error:
             messages.add_message(
                 request, messages.ERROR, error.response.result["errors"][0]["detail"]
@@ -547,6 +590,8 @@ def findTickets(request):
                 "departureDate": departure_date,
                 "returnDate": return_date,
                 'form': myUser[0],
+                'originLocation': originLocation,
+                'destinationLocation': destinationLocation
                 # "tripPurpose": tripPurpose
             },
         )

@@ -706,6 +706,7 @@ nav li a:hover {
     font-size: smaller;
     color: black;
     padding-top: 3px;
+    margin-right: 1vw;
 }
 
 .searchbar-tickets-from::placeholder {
@@ -869,11 +870,14 @@ nav li a:hover {
 }
 
 .content-3-left {
-    font-size: large;
-    font-family: "Raleway", sans-serif;
+    font-size: x-large;
+    font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 700;
+    font-weight: 750;
     font-style: normal;
+    background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #ff87be);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
 
 .content-3-right {
@@ -904,6 +908,9 @@ nav li a:hover {
     filter: blur(0);
     transform: translateX(0);
     opacity: 1;
+    background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #ff87be);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
 
 .blob {
@@ -1051,10 +1058,10 @@ nav li a:hover {
 }
 
 .cards p {
-    font-size: large;
-    font-family: "Raleway", sans-serif;
+    font-size: x-large;
+    font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 700;
+    font-weight: 750;
     font-style: normal;
     text-align: center;
 }
@@ -1174,4 +1181,58 @@ nav li a:hover {
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
+}
+
+
+.header-search-results-container {
+    position: absolute;
+    max-height: 35vh;
+    top: -13%;
+    width: 30%;
+    margin-top: 21vh;
+    margin-left: 58vw;
+    background: lavenderblush;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 20px;
+    z-index: 1150;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header-search-results-container ul {
+    list-style: none;
+}
+
+.searchedContainer {
+    display: flex;
+    flex-direction: row;
+    padding: .28rem 1rem .28rem 1rem;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    font-size: smaller;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    margin: 6px 6px 6px 6px;
+    transition: all .5s
+}
+
+.searchedContainer:hover {
+    display: flex;
+    flex-direction: row;
+    padding: .28rem 1rem .28rem 1rem;
+    justify-content: space-evenly;
+    width: 101%;
+    height: 101%;
+    font-size: smaller;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    margin: 6px 6px 6px 6px;
+    background-color: #f3c8d6;
+    transition: all .5s;
+    cursor: pointer;
 }

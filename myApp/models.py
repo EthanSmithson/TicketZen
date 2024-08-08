@@ -32,6 +32,8 @@ class savedTicket(models.Model):
     departureDate = models.CharField(max_length=1000000000, default="")
     returnDate = models.CharField(max_length=1000000000, default="")
     price = models.CharField(max_length=1000000000, default="")
+    originLocation = models.CharField(max_length=1000, default="")
+    destinationLocation = models.CharField(max_length=1000, default="")
 
     def __str__(self):
         return self.uid
