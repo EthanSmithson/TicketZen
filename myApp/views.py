@@ -181,8 +181,17 @@ def login(request):
         user = User.objects.all()
 
         myUser = user.filter(email=email).values()
-        getID = myUser[0]
-        myID = getID['id']
+        if len(myUser) > 0:
+            getID = myUser[0]
+            myID = getID['id']
+
+        if user.filter(email=email, password=password, confirmed = 1).exists() == False:
+            form = LoginForm(None)   
+
+            messages.add_message(request, messages.ERROR, 
+                                            "Incorrect Credentials!", extra_tags="login")
+            
+            return render(request, 'login.html', {'form':form})
 
         recentSearches = recentSearch.objects.all()
         myRecentSearches = recentSearches.filter(uid=myID).values()
@@ -245,6 +254,20 @@ def updateSidebarStatus(request):
         User.objects.filter(id=id).update(sidebarStatus = 0)
     else :
         User.objects.filter(id=id).update(sidebarStatus = 1)
+
+    return HttpResponse(status=200)
+
+def updateDisplay(request):
+    id = request.GET.get('id')
+    print(id)
+    users = User.objects.all()
+    myUser = users.filter(id=id).values()[0]
+    myUserSidebar = myUser["displayStatus"]
+
+    if myUserSidebar == 1 :
+        User.objects.filter(id=id).update(displayStatus = 0)
+    else :
+        User.objects.filter(id=id).update(displayStatus = 1)
 
     return HttpResponse(status=200)
 
@@ -411,7 +434,18 @@ def searchedLookup(request):
     mysavedTickets = savedTickets.filter(uid=uid).values("zeroFlightTotalDuration", "zeroFirstFlightDepartureDate", "zeroFirstFlightDepartureAirport", "zeroFirstFlightArrivalAirport", "zeroFirstFlightArrivalDate", "oneFirstFlightDepartureAirport", "oneFlightTotalDuration", "oneFirstFlightDepartureDate", "oneFirstFlightArrivalAirport", "oneFirstFlightArrivalDate", "origin", "destination", "departureDate", "returnDate", "price", "id", "uid")
 
     return render(request, 'myTickets.html', {'form':myUser[0], 'tickets': mysavedTickets, 'searchedId': id})
+
+# def settings(request):
+#     uid = request.GET.get('uid')
+#     users = User.objects.all()
+
+#     myUser = users.filter(id=uid).values()
+
+#     html = render_to_string('settings.html', {'form':myUser[0]})
     
+#     return HttpResponse(html)
+    
+    # return render(request, 'settings.html', {'form':myUser[0]})
 
 def tickets(request):  
     print(request.GET.get('uid'))
@@ -443,7 +477,7 @@ def save_explore_ticket(request, total, origin, destination, departureDate, retu
     return render(request, 'home.html', {'form':myUser[0]})
 
 
-def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid, originLocation, destinationLocation):
+def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, zeroFirstFlightDepartureAirport, zeroFirstFlightArrivalAirport, zeroFirstFlightArrivalDate, oneFirstFlightDepartureAirport, oneFlightTotalDuration, oneFirstFlightDepartureDate, oneFirstFlightArrivalAirport, oneFirstFlightArrivalDate, origin, destination, departureDate, returnDate, price, uid):
     thisId = uid
     users = User.objects.all()
 
@@ -464,8 +498,8 @@ def save_ticket(request, zeroFlightTotalDuration, zeroFirstFlightDepartureDate, 
                             , departureDate=departureDate
                             , returnDate=returnDate
                             , price=price
-                            , originLocation=originLocation
-                            , destinationLocation=destinationLocation
+                            , originLocation=zeroFirstFlightDepartureAirport
+                            , destinationLocation=oneFirstFlightArrivalDate
                         )
     newTicket.save()
     return render(request, 'tickets.html', {'form':myUser[0]})
@@ -517,15 +551,16 @@ def findTickets(request):
     originLocation = request.POST.get("Origin").replace(",", "")
     destinationLocation = request.POST.get("Destination").replace(",", "")
 
-    recentSearchedTicket = recentSearch(uid=uid
-                            , origin=origin
-                            , destination=destination
-                            , departureDate=departure_date
-                            , returnDate=return_date
-                            , creationDtTm=datetime.date.today()
-                        )
-    
-    recentSearchedTicket.save()
+    if origin != "" and destination != "" and  departure_date != "" and return_date != "":
+        recentSearchedTicket = recentSearch(uid=uid
+                                , origin=origin
+                                , destination=destination
+                                , departureDate=departure_date
+                                , returnDate=return_date
+                                , creationDtTm=datetime.date.today()
+                            )
+        
+        recentSearchedTicket.save()
 
     users = User.objects.all()
 

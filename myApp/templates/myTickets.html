@@ -3,12 +3,12 @@
 {% block mainContent %}
 <link href="{% static 'styles.css' %}" rel="stylesheet" type="text/css">
 <div class="my-recents">
-    <div style="width: 8vw;" class="my-recents-header">
+    <div id="my-recents-header" style="width: 8vw;" class="my-recents-header">
         Saved Tickets
     </div>
     <input id="searchedId" type="hidden" value="{{searchedId}}" />
     <div style="width: 89%;" class="my-recents-content">
-        <div class="swiper" style="height: 45vh;">
+        <div class="swiper" style="height: 45vh; width: 70vw;">
             <!-- Additional required wrapper -->
             <div id="recentList" style="justify-content: center;
     display: flex;" class="swiper-wrapper">

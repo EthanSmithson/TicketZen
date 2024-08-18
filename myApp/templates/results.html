@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>Amadeus Flight Booking</title>
 </head>
-<body>
-  <div class="row pt-5" style="display: flex;
+<body onload="pagination()">
+  <div class="row pt-5" class="forTicketCount" style="display: flex;
   flex-direction: column;
   align-items: center;">
     <div class="col-md-5">
@@ -42,7 +42,7 @@
                     <input type="hidden" value="{{originLocation}}">
                     <input type="hidden" value="{{destinationLocation}}">
                         <div class="" style="font-size: 26;color: darkred;">${{ r.price }}
-                            <a href="{% url 'save_ticket' r.0FlightTotalDuration r.0firstFlightDepartureDate r.0firstFlightDepartureAirport r.0firstFlightArrivalAirport r.0firstFlightArrivalDate r.1firstFlightDepartureAirport r.1FlightTotalDuration r.1firstFlightDepartureDate r.1firstFlightArrivalAirport r.1firstFlightArrivalDate origin destination departureDate returnDate r.price form.id originLocation destinationLocation %}" id="saveFlight"><input style="    background: coral;
+                            <a href="{% url 'save_ticket' r.0FlightTotalDuration r.0firstFlightDepartureDate r.0firstFlightDepartureAirport r.0firstFlightArrivalAirport r.0firstFlightArrivalDate r.1firstFlightDepartureAirport r.1FlightTotalDuration r.1firstFlightDepartureDate r.1firstFlightArrivalAirport r.1firstFlightArrivalDate origin destination departureDate returnDate r.price form.id %}" id="saveFlight"><input style="    background: coral;
                                 margin-left: 10vw;
                                 border-radius: 9px;
                                 Font-family: 'Raleway', sans-serif;
@@ -112,6 +112,22 @@
                     </div>
                 {% endif %}
             {% endfor %}
+            <!-- <div style="position: absolute;
+            display: flex;
+            width: 100%;
+            padding: 14rem;
+            margin-top: 22vh;" id="paginationBtns">
+                <input id="prevBtn" style="margin-right: 26vw; border-radius: 15px;
+                border-radius: 15px;
+                border: none;
+                background: none;
+                cursor: pointer;" placeholder="Previous"/>
+                <input id="nextBtn" style="border-radius: 15px;
+                border-radius: 15px;
+                border: none;
+                background: none;
+                cursor: pointer;" placeholder="Next" />
+              </div> -->
         {% else %}
             <h4 style="    width: 100%;
             height: 15vh;
@@ -127,6 +143,52 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
 
+
+        // function pagination() {
+        //     const myResults = document.getElementById("results").children[4].children[1].children[0]
+        //     console.log(myResults)
+        //     const numberResults = document.getElementById('results').children[4].children[1].children[0].childElementCount;
+        //     console.log(numberResults)
+        //     var totalPages = Math.floor(numberResults / 21);
+        //     console.log(totalPages)
+        //     var remainderPages = Math.ceil(numberResults % 21);
+        //     console.log(remainderPages)
+
+        //     if (remainderPages > 0) {
+        //         totalPages += 1;
+        //     }
+
+        //     console.log(totalPages)
+
+        //     if (numberResults > 21) {
+        //         var page = 1;
+        //         for (page; page<=totalPages; page++) {
+        //             for (i=((21*page)-21); i<21*page; i++) {
+        //                 // console.log(myResults.children[i])
+        //                 myResults.children[i].classList.add("page_"+page);
+        //             }
+        //         }
+        //         // if (page == totalPages) {
+        //         //     const visiblePage = myResults.getElementsByClassName("page_1");
+        //         //     console.log(visiblePage)
+        //         // }
+        //     }
+
+        //     // const visiblePage = document.getElementsByClassName("page_1");
+        //     // console.log(visiblePage)
+
+            
+        // }
+
+        // const visiblePage = document.getElementsByClassName("page_1");
+        // console.log(visiblePage);
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const itemsPerPage = 5;
+        //     let currentPage = 0;
+        //     const items = Array.from(results.getElementsByClassName('forTicketCount'));
+        // })
+        
 </script>
 
 </body>
